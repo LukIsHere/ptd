@@ -1,0 +1,16 @@
+body{
+    background-color: rgb(36, 36, 36);
+}
+
+canvas{
+    background: rgb(97, 97, 97);
+    position: fixed;
+    overflow: hidden;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 100%;
+    max-height: 100%;
+    margin: auto;
+    border-radius: 2mm;
+}
