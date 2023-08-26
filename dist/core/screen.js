@@ -60,16 +60,38 @@ export class ctx {
             var pos = this.realPos(e.clientX, e.clientY);
             func(pos.x, pos.y);
         };
+        this.canvas.ontouchstart = (e) => {
+            if (!e.targetTouches[0])
+                return;
+            var touch = e.targetTouches[0];
+            var pos = this.realPos(touch.clientX, touch.clientY);
+            this.lastX = pos.x;
+            this.lastY = pos.y;
+            func(pos.x, pos.y);
+        };
     }
     setMouseUpEvent(func) {
         this.canvas.onmouseup = (e) => {
             var pos = this.realPos(e.clientX, e.clientY);
             func(pos.x, pos.y);
         };
+        this.canvas.ontouchend = (e) => {
+            func(this.lastX, this.lastY);
+        };
     }
     setMouseMoveEvent(func) {
         this.canvas.onmousemove = (e) => {
             var pos = this.realPos(e.clientX, e.clientY);
+            func(pos.x, pos.y);
+        };
+        this.canvas.ontouchmove = (e) => {
+            if (!e.targetTouches[0])
+                return;
+            var touch = e.targetTouches[0];
+            var pos = this.realPos(touch.clientX, touch.clientY);
+            this.lastX = pos.x;
+            this.lastY = pos.y;
+            e.preventDefault();
             func(pos.x, pos.y);
         };
     }
