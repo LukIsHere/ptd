@@ -36,6 +36,11 @@ export class ctx {
         this.ctx.lineWidth = t;
         this.ctx.stroke();
     }
+    drawText(c, font, text, x, y) {
+        this.ctx.fillStyle = c;
+        this.ctx.font = font;
+        this.ctx.fillText(text.toString(), x, y);
+    }
     realPos(x, y) {
         const rect = this.canvas.getBoundingClientRect();
         const elementRelativeX = x - rect.left;
@@ -46,6 +51,24 @@ export class ctx {
     }
     setClickEvent(func) {
         this.canvas.onclick = (e) => {
+            var pos = this.realPos(e.clientX, e.clientY);
+            func(pos.x, pos.y);
+        };
+    }
+    setMouseDownEvent(func) {
+        this.canvas.onmousedown = (e) => {
+            var pos = this.realPos(e.clientX, e.clientY);
+            func(pos.x, pos.y);
+        };
+    }
+    setMouseUpEvent(func) {
+        this.canvas.onmouseup = (e) => {
+            var pos = this.realPos(e.clientX, e.clientY);
+            func(pos.x, pos.y);
+        };
+    }
+    setMouseMoveEvent(func) {
+        this.canvas.onmousemove = (e) => {
             var pos = this.realPos(e.clientX, e.clientY);
             func(pos.x, pos.y);
         };

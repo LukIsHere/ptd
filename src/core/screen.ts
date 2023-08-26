@@ -1,5 +1,7 @@
 import { img } from "./images.js";
 
+type font = "30px Arial"
+
 export class ctx {
     ctx: CanvasRenderingContext2D;
     canvas:HTMLCanvasElement;
@@ -41,6 +43,11 @@ export class ctx {
         
         this.ctx.stroke();
     }
+    drawText(c:string,font:font,text:string,x:number,y:number){
+        this.ctx.fillStyle = c;
+        this.ctx.font = font;
+        this.ctx.fillText(text.toString(),x,y);
+    }
     realPos(x:number,y:number){
         const rect = this.canvas.getBoundingClientRect();
         const elementRelativeX = x - rect.left;
@@ -52,6 +59,24 @@ export class ctx {
     }
     setClickEvent(func:(x:number,y:number)=>void){
         this.canvas.onclick = (e)=>{
+            var pos = this.realPos(e.clientX,e.clientY)
+            func(pos.x,pos.y)
+        }
+    }
+    setMouseDownEvent(func:(x:number,y:number)=>void){
+        this.canvas.onmousedown = (e)=>{
+            var pos = this.realPos(e.clientX,e.clientY)
+            func(pos.x,pos.y)
+        }
+    }
+    setMouseUpEvent(func:(x:number,y:number)=>void){
+        this.canvas.onmouseup = (e)=>{
+            var pos = this.realPos(e.clientX,e.clientY)
+            func(pos.x,pos.y)
+        }
+    }
+    setMouseMoveEvent(func:(x:number,y:number)=>void){
+        this.canvas.onmousemove = (e)=>{
             var pos = this.realPos(e.clientX,e.clientY)
             func(pos.x,pos.y)
         }

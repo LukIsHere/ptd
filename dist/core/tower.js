@@ -107,4 +107,22 @@ export class tower {
         var upgrade = me.upgrades[this.upgrade];
         drawRangeCircle(screen, this.pos, upgrade.range);
     }
+    tryUpgrade(money) {
+        var up = towers[this.type].upgrades;
+        if (!up[this.upgrade + 1])
+            return 0;
+        if (up[this.upgrade + 1].cost > money)
+            return 0;
+        this.upgrade++;
+        return up[this.upgrade].cost;
+    }
+}
+export function arbitraryDrawTower(p, type, screen) {
+    var me = towers[type];
+    if (me.i == undefined)
+        return;
+    screen.drawImageCenter(me.i, p.x, p.y, me.size, me.size);
+}
+export function towerInfo(t) {
+    return towers[t];
 }
