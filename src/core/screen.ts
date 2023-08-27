@@ -2,6 +2,8 @@ import { img } from "./images.js";
 
 type font = "30px Arial"
 
+type color = string|"black"|"white"
+
 export class ctx {
     ctx: CanvasRenderingContext2D;
     canvas:HTMLCanvasElement;

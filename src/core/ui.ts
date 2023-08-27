@@ -9,7 +9,9 @@ interface element{
 
 export enum uiElement{
     rangeA = "rangeA",
-    rangeB = "rangeB"
+    rangeB = "rangeB",
+    pauseButton = "pButton",
+    fastforwardButton = "ffButton",
 }
 
 const uiElements:{ [key in uiElement]: element } = {
@@ -19,6 +21,14 @@ const uiElements:{ [key in uiElement]: element } = {
     },
     rangeB:{
         path:"./assets/rangeCircleB.png",
+        i:undefined
+    },
+    pButton:{
+        path:"./assets/pButton.png",
+        i:undefined
+    },
+    ffButton:{
+        path:"./assets/ffButton.png",
         i:undefined
     }
 }
@@ -43,4 +53,8 @@ export function drawRangeCircle(screen:ctx,pos:point,range:number){
     rotation++;
     screen.drawImageCenter(uiElements[uiElement.rangeA].i,pos.x,pos.y,range*30*2,range*30*2)
     screen.drawImageCenterR(uiElements[uiElement.rangeB].i,pos.x,pos.y,range*30*2,range*30*2,rotation)
+}
+
+export function drawUiRect(screen:ctx,e:uiElement,x:number,y:number,w:number,h:number){
+    screen.drawImage(uiElements[e].i,x,y,w,h)
 }

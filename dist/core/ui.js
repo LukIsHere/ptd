@@ -3,6 +3,8 @@ export var uiElement;
 (function (uiElement) {
     uiElement["rangeA"] = "rangeA";
     uiElement["rangeB"] = "rangeB";
+    uiElement["pauseButton"] = "pButton";
+    uiElement["fastforwardButton"] = "ffButton";
 })(uiElement || (uiElement = {}));
 const uiElements = {
     rangeA: {
@@ -11,6 +13,14 @@ const uiElements = {
     },
     rangeB: {
         path: "./assets/rangeCircleB.png",
+        i: undefined
+    },
+    pButton: {
+        path: "./assets/pButton.png",
+        i: undefined
+    },
+    ffButton: {
+        path: "./assets/ffButton.png",
         i: undefined
     }
 };
@@ -33,4 +43,7 @@ export function drawRangeCircle(screen, pos, range) {
     rotation++;
     screen.drawImageCenter(uiElements[uiElement.rangeA].i, pos.x, pos.y, range * 30 * 2, range * 30 * 2);
     screen.drawImageCenterR(uiElements[uiElement.rangeB].i, pos.x, pos.y, range * 30 * 2, range * 30 * 2, rotation);
+}
+export function drawUiRect(screen, e, x, y, w, h) {
+    screen.drawImage(uiElements[e].i, x, y, w, h);
 }

@@ -1,0 +1,8 @@
+960+248
+name
+price
+pkm pkm
+...
+controlls
+
+124++64*y

@@ -31,6 +31,9 @@ export class point {
     distance(p) {
         return vector.get(this, p).distance();
     }
+    isInside(x, y, w, h) {
+        return (this.x >= x && this.y >= y && this.x <= x + w && this.y <= y + h);
+    }
 }
 export class vector {
     constructor(x, y) {

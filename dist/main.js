@@ -4,5 +4,5 @@ gm.load().then(e => {
     console.log(gm);
     setInterval(() => {
         gm.drawLoop();
-    }, 1000 / 30);
+    }, 1000 / 60);
 });
