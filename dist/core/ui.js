@@ -5,6 +5,7 @@ export var uiElement;
     uiElement["rangeB"] = "rangeB";
     uiElement["pauseButton"] = "pButton";
     uiElement["fastforwardButton"] = "ffButton";
+    uiElement["upgradeButton"] = "uButton";
 })(uiElement || (uiElement = {}));
 const uiElements = {
     rangeA: {
@@ -21,6 +22,10 @@ const uiElements = {
     },
     ffButton: {
         path: "./assets/ffButton.png",
+        i: undefined
+    },
+    uButton: {
+        path: "./assets/uButton.png",
         i: undefined
     }
 };

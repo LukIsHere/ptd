@@ -64,7 +64,10 @@ export class game{
     mainGameLoop(){
         if(this.frame){
             this.gameDrawLoop();
-            this.drawMapUi();
+            if(this.states=="tower")
+                this.drawTowerMenu();
+            else
+                this.drawMapUi();
         }
 
         if(this.fastforward||this.frame)
@@ -111,17 +114,38 @@ export class game{
             e.draw(this.screen);
         })
         
-        this.towers.forEach(t=>{
-            t.draw(this.screen)
-        })
-
         if(this.highlight)
             this.highlight.drawRange(this.screen)
         
-        this.screen.drawText("black","30px Arial",this.money+"$",0,30)
+        this.towers.forEach(t=>{
+            t.draw(this.screen)
+        })
+        
+        this.screen.drawText("white","30px Arial",this.money+"$",0,30)
     }
     drawTowerMenu(){
+        this.screen.fillRect("green",960,0,128,960)
+        if(!this.highlight)
+            return;
 
+        arbitraryDrawTower(p(960+128,128),this.highlight.type,this.screen)
+        this.screen.drawText("white","30px Arial","lvl "+(this.highlight.upgrade+1),960,30+248)
+        this.screen.drawText("white","30px Arial","next upgrade "+(this.highlight.getUpgradeCost())+"$",960,60+248)
+
+        drawUiRect(this.screen,uiElement.upgradeButton,960+20+128,960-232,84,84);
+        
+        if(this.paused)
+            drawUiRect(this.screen,uiElement.pauseButton,960+15+128,960-113,94,94);
+        else
+            drawUiRect(this.screen,uiElement.pauseButton,960+20+128,960-108,84,84);
+
+        if(this.fastforward)
+            drawUiRect(this.screen,uiElement.fastforwardButton,960+15,960-113,94,94);
+        else
+            drawUiRect(this.screen,uiElement.fastforwardButton,960+20,960-108,84,84);
+        
+        if(this.states=="drag")
+            arbitraryDrawTower(this.mousePos,towerType.pika,this.screen);
     }
     drawMapUi(){
         this.screen.fillRect("green",960,0,128,960)
@@ -178,6 +202,12 @@ export class game{
         if(pt.isInside(960+20,960-108,84,84)){//fastforward button
             this.fastforward=!this.fastforward;
         }
+        if(this.states!="tower")
+            return;
+
+        if(pt.isInside(960+20+128,960-232,84,84)){//upgrade
+            this.money -= this.highlight.tryUpgrade(this.money);
+        }
     }
     tryRelease(x:number,y:number){
         if(!this.canPlace(this.selectedTower,x,y))
@@ -189,13 +219,17 @@ export class game{
         this.towers.push(new tower(p(x,y),this.selectedTower));
     }
     onMouseDown(x:number,y:number){
-        this.highlight = this.getHightlight(x,y)
+        if(x<=960)
+            this.highlight = this.getHightlight(x,y)
+        
         if(this.highlight&&x<=960)
             this.states = "tower";
+        else if(x<=960)
+            this.states = "non"
 
         var ct;
         
-        if(x>960)
+        if(x>960&&this.states=="non")
             ct = this.getClickedTower(x,y);
 
         if(ct){

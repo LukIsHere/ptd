@@ -12,6 +12,7 @@ export enum uiElement{
     rangeB = "rangeB",
     pauseButton = "pButton",
     fastforwardButton = "ffButton",
+    upgradeButton = "uButton"
 }
 
 const uiElements:{ [key in uiElement]: element } = {
@@ -29,6 +30,10 @@ const uiElements:{ [key in uiElement]: element } = {
     },
     ffButton:{
         path:"./assets/ffButton.png",
+        i:undefined
+    },
+    uButton:{
+        path:"./assets/uButton.png",
         i:undefined
     }
 }

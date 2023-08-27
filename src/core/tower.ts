@@ -14,7 +14,7 @@ interface upgradeData{
 }
 interface towerData{
     size:number,
-    upgrades:[upgradeData],
+    upgrades:upgradeData[],
     path:string,
     i:undefined|img
 }
@@ -38,7 +38,25 @@ const towers:{ [key in towerType]: towerData } = {
                 cost:35,
                 damage:2,
                 atackSpeed:1,
-                range:5
+                range:7
+            },
+            {
+                cost:50,
+                damage:3,
+                atackSpeed:1,
+                range:7
+            },
+            {
+                cost:92,
+                damage:5,
+                atackSpeed:1,
+                range:8
+            },
+            {
+                cost:214,
+                damage:7,
+                atackSpeed:0.9,
+                range:8
             }
         ],
         path:"./assets/R.png",
@@ -142,16 +160,21 @@ export class tower{
         drawRangeCircle(screen,this.pos,upgrade.range)
     }
     tryUpgrade(money){
+        var up = this.getUpgradeCost()
+
+        if(up==0)
+            return 0;
+
+        this.upgrade++;
+
+        return up;
+    }
+    getUpgradeCost(){
         var up = towers[this.type].upgrades
         
         if(!up[this.upgrade+1])
             return 0
-
-        if(up[this.upgrade+1].cost>money)
-            return 0
-
-        this.upgrade++;
-
+        
         return up[this.upgrade].cost;
     }
 }
